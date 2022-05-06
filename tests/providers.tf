@@ -2,7 +2,11 @@ provider "kubernetes" {
   config_path = "~/.kube/config"
 }
 
-provider "helm" {}
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config"
+  }
+}
 
 provider "aws" {
   // Skipping because we don't test aws infra in test pipeline
