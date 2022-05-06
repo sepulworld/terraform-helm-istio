@@ -35,7 +35,7 @@ jobs:
         run: terraform -chdir=tests/ apply -auto-approve
 
       - name: Run Terraform Destroy on tests
-        run: terraform -chdir=tests/ destroy
+        run: terraform -chdir=tests/ destroy -auto-approve
 
 
 
