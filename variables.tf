@@ -184,3 +184,8 @@ variable "istio_meshconfig_mesh_name" {
   description = "Istio telementry mesh name, default mesh1"
   default     = "mesh1"
 }
+
+variable "enable_aws_secret_manager_based_certs" {
+  description = "If you would like to provide your own mTLS CA certs for istio to use, enable this flag and input AWS secret ARNs required"
+  default     = false
+}

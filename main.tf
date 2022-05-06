@@ -101,14 +101,14 @@ resource "helm_release" "istiod" {
   ]
 }
 
-resource "helm_release" "istio-gateway" {
-  // NLB based gateway
-  count            = var.istio_gw_enabled ? 1 : 0
+resource "helm_release" "istio-gateway-aws-nlb" {
+  // Optional AWS NLB based gateway
+  count            = var.istio_aws_nlb_gw_enabled ? 1 : 0
   depends_on       = [helm_release.istio-base, helm_release.istiod]
   chart            = "gateway"
   namespace        = "istio-gateway"
   create_namespace = var.create_namespace
-  name             = "istio-private-gateway"
+  name             = "istio-private-gateway-aws-nlb"
   version          = var.helm_chart_version
   repository       = var.helm_repo_url == "./helm" ? "${path.module}/helm" : var.helm_repo_url
   force_update     = var.force_update
@@ -144,13 +144,14 @@ resource "helm_release" "istio-gateway" {
   ]
 }
 
-resource "helm_release" "istio-gateway-elb" {
-  count            = var.istio_elb_gw_enabled ? 1 : 0
+resource "helm_release" "istio-gateway-aws-elb" {
+  // Optional AWS ELB based gateway
+  count            = var.istio_aws_elb_gw_enabled ? 1 : 0
   depends_on       = [helm_release.istio-base, helm_release.istiod]
   chart            = "gateway"
   namespace        = "istio-gateway"
   create_namespace = var.create_namespace
-  name             = "istio-private-gateway-elb"
+  name             = "istio-private-gateway-aws-elb"
   version          = var.helm_chart_version
   repository       = var.helm_repo_url == "./helm" ? "${path.module}/helm" : var.helm_repo_url
   force_update     = var.force_update
@@ -193,18 +194,22 @@ resource "helm_release" "istio-gateway-elb" {
 }
 
 data "aws_secretsmanager_secret_version" "ca_private_key" {
+  count     = var.enable_aws_secret_manager_based_certs ? 1 : 0
   secret_id = var.ca_private_key
 }
 
 data "aws_secretsmanager_secret_version" "ca_cert_chain" {
+  count     = var.enable_aws_secret_manager_based_certs ? 1 : 0
   secret_id = var.ca_cert_chain
 }
 
 data "aws_secretsmanager_secret_version" "ca_cert" {
+  count     = var.enable_aws_secret_manager_based_certs ? 1 : 0
   secret_id = var.ca_cert
 }
 
 resource "kubernetes_secret" "istio-ca" {
+  count      = var.enable_aws_secret_manager_based_certs ? 1 : 0
   depends_on = [helm_release.istio-base]
 
   metadata {

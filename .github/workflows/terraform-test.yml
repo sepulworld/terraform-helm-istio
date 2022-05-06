@@ -1,0 +1,37 @@
+name: Lint and Test Terraform
+
+on: [push]
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.1.7
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.2.0
+
+      - name: Run Terraform fmt
+        run: terraform fmt -check
+
+      - name: Run Terraform Init 
+        run: terraform init -chdir=tests/ 
+
+      - name: Run Terraform Plan on tests
+        run: terraform plan -chdir=tests/
+
+      - name: Run Terraform Apply on tests
+        run: terraform apply -chdir=tests/
+
+      - name: Run Terraform Destroy on tests
+        run: terraform destroy -chdir=tests/
+
+
+
