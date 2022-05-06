@@ -5,18 +5,15 @@ on: [push]
 jobs:
   lint-test:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_REGION: us-west-2
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: "testing"
-          aws-secret-access-key: "testing" 
-          aws-region: us-east-2
 
       - uses: hashicorp/setup-terraform@v2
         with:
