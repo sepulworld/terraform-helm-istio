@@ -218,9 +218,9 @@ resource "kubernetes_secret" "istio-ca" {
   }
 
   data = {
-    "ca-cert.pem"    = data.aws_secretsmanager_secret_version.ca_cert.secret_string
-    "cert-chain.pem" = data.aws_secretsmanager_secret_version.ca_cert.secret_string
-    "ca-key.pem"     = data.aws_secretsmanager_secret_version.ca_private_key.secret_string
-    "root-cert.pem"  = data.aws_secretsmanager_secret_version.ca_cert_chain.secret_string
+    "ca-cert.pem"    = data.aws_secretsmanager_secret_version.ca_cert[count.index].secret_string
+    "cert-chain.pem" = data.aws_secretsmanager_secret_version.ca_cert[count.index].secret_string
+    "ca-key.pem"     = data.aws_secretsmanager_secret_version.ca_private_key[count.index].secret_string
+    "root-cert.pem"  = data.aws_secretsmanager_secret_version.ca_cert_chain[count.index].secret_string
   }
 }

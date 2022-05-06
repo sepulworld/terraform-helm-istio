@@ -3,3 +3,5 @@ provider "kubernetes" {
 }
 
 provider "helm" {}
+
+provider "aws" {}
