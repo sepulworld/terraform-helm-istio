@@ -37,6 +37,9 @@ jobs:
       - name: Run Terraform Apply on tests
         run: terraform -chdir=tests/ apply -auto-approve
 
+      - name: Run RobotFramework Tests
+        run: robot -i istio -e prerelease robot_tests/
+
       - name: Run Terraform Destroy on tests
         run: terraform -chdir=tests/ destroy -auto-approve
 
