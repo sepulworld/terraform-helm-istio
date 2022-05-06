@@ -32,7 +32,7 @@ jobs:
         run: terraform -chdir=tests/ plan
 
       - name: Run Terraform Apply on tests
-        run: terraform -chdir=tests/ apply
+        run: terraform -chdir=tests/ apply -auto-approve
 
       - name: Run Terraform Destroy on tests
         run: terraform -chdir=tests/ destroy
