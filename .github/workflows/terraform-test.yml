@@ -9,7 +9,7 @@ jobs:
       AWS_ACCESS_KEY_ID: test
       AWS_SECRET_ACCESS_KEY: test
       AWS_REGION: us-west-2
-      KUBECTL_VERSION: 1.21.10
+      KUBELET_VERSION: 1.21.10
     steps:
       - name: Checkout
         uses: actions/checkout@v2
