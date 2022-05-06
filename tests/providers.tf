@@ -4,4 +4,6 @@ provider "kubernetes" {
 
 provider "helm" {}
 
-provider "aws" {}
+provider "aws" {
+  skip_credentials_validation = true
+}
