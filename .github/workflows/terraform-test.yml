@@ -16,6 +16,7 @@ jobs:
         with:
           aws-access-key-id: "testing"
           aws-secret-access-key: "testing" 
+          aws-region: us-east-2
 
       - uses: hashicorp/setup-terraform@v2
         with:
