@@ -17,7 +17,9 @@ jobs:
           fetch-depth: 0
 
       - name: Install RobotFramework
-        run: pip install robotframework
+        run: |
+          pip install robotframework
+          pip install robotframework-kubelibrary
 
       - uses: hashicorp/setup-terraform@v2
         with:
