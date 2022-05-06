@@ -165,12 +165,12 @@ variable "nlb_load_balancer" {
   }
 }
 
-variable "istio_elb_gw_enabled" {
+variable "istio_aws_elb_gw_enabled" {
   description = "enable or disable the istio gw install that has an ELB for load balancer, default true"
   default     = false
 }
 
-variable "istio_gw_enabled" {
+variable "istio_aws_nlb_gw_enabled" {
   description = "enable or disable the istio gw install that has an ELB for load balancer, default true"
   default     = false
 }
