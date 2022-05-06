@@ -8,8 +8,7 @@ terraform-docs markdown . --output-file README.md
 ```
 ### Automated testing on module
 
-testing performed via pipeline on each Pull Request. It will turn up tests EKS and tear it down.
-See `./tests` folder for more details
+Testing is done via GHA workflow using K8s Kind. See `.tests/`
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
