@@ -9,6 +9,7 @@ jobs:
       AWS_ACCESS_KEY_ID: test
       AWS_SECRET_ACCESS_KEY: test
       AWS_REGION: us-west-2
+      KUBECTL_VERSION: 1.21.10
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,6 +25,8 @@ jobs:
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
+        with:
+          kubectl_version:  v1.21.10
 
       - name: Run Terraform fmt
         run: terraform fmt -check
