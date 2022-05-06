@@ -11,6 +11,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: "testing"
+          aws-secret-access-key: "testing" 
+
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.1.7
