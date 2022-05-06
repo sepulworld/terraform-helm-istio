@@ -22,16 +22,16 @@ jobs:
         run: terraform fmt -check
 
       - name: Run Terraform Init 
-        run: terraform init -chdir=tests/ 
+        run: terraform -chdir=tests/ init
 
       - name: Run Terraform Plan on tests
-        run: terraform plan -chdir=tests/
+        run: terraform -chdir=tests/ plan
 
       - name: Run Terraform Apply on tests
-        run: terraform apply -chdir=tests/
+        run: terraform -chdir=tests/ apply
 
       - name: Run Terraform Destroy on tests
-        run: terraform destroy -chdir=tests/
+        run: terraform -chdir=tests/ destroy
 
 
 
