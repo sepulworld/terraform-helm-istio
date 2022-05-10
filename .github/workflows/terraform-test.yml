@@ -3,7 +3,7 @@ name: Lint and Test Terraform
 on: [push]
 
 jobs:
-  lint-test:
+  helm-install-test:
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: test
@@ -47,6 +47,4 @@ jobs:
 
       - name: Run Terraform Destroy on tests
         run: terraform -chdir=tests/ destroy -auto-approve
-
-
 

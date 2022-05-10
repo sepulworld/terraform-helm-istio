@@ -48,18 +48,6 @@ variable "istio_base_settings" {
   description = "Additional settings which will be passed to the Helm chart values, yamldecode will be performed on the HCL"
 }
 
-variable "istiod_settings" {
-  type        = map(any)
-  default     = {}
-  description = "Additional settings which will be passed to the Helm chart values, yamldecode will be performed on the HCL"
-}
-
-variable "istio_private_gateway_settings" {
-  type        = map(any)
-  default     = {}
-  description = "Additional settings which will be passed to the Helm chart values, yamldecode will be performed on the HCL"
-}
-
 variable "ca_private_key" {
   description = "the aws secret arn to use for ca_private_key, required"
   default     = ""
@@ -75,117 +63,62 @@ variable "ca_cert" {
   default     = ""
 }
 
-variable "subnets" {
-  description = "provide the subnets used by load balancer for istio gateway"
-  default     = []
-}
-
-variable "elb_load_balancer" {
-  default = {
-    "service" = {
-      "annotations" = {
-        "service.beta.kubernetes.io/aws-load-balancer-internal" = "true"
-      },
-      "ports" = [
-        {
-          "name"       = "https"
-          "port"       = 443
-          "protocol"   = "TCP"
-          "targetPort" = 443
-        },
-        {
-          "name"       = "http2"
-          "port"       = 80
-          "protocol"   = "TCP"
-          "targetPort" = 80
-        },
-        {
-          "name"       = "status-port"
-          "port"       = 15021
-          "protocol"   = "TCP"
-          "targetPort" = 15021
-        },
-        {
-          "name"       = "grpc"
-          "port"       = 50051
-          "protocol"   = "TCP"
-          "targetPort" = 50051
-        },
-        {
-          "name"       = "tls"
-          "port"       = 15443
-          "protocol"   = "TCP"
-          "targetPort" = 15443
-        },
-      ]
-    }
-  }
-}
-
-variable "nlb_load_balancer" {
-  default = {
-    "service" = {
-      "annotations" = {
-        "service.beta.kubernetes.io/aws-load-balancer-type"     = "nlb"
-        "service.beta.kubernetes.io/aws-load-balancer-internal" = "true"
-      },
-      "ports" = [
-        {
-          "name"       = "https"
-          "port"       = 443
-          "protocol"   = "TCP"
-          "targetPort" = 443
-        },
-        {
-          "name"       = "http2"
-          "port"       = 80
-          "protocol"   = "TCP"
-          "targetPort" = 80
-        },
-        {
-          "name"       = "status-port"
-          "port"       = 15021
-          "protocol"   = "TCP"
-          "targetPort" = 15021
-        },
-        {
-          "name"       = "grpc"
-          "port"       = 50051
-          "protocol"   = "TCP"
-          "targetPort" = 50051
-        },
-        {
-          "name"       = "tls"
-          "port"       = 15443
-          "protocol"   = "TCP"
-          "targetPort" = 15443
-        },
-      ]
-    }
-  }
-}
-
-variable "istio_aws_elb_gw_enabled" {
-  description = "enable or disable the istio gw install that has an ELB for load balancer, default true"
+variable "enable_aws_secret_manager_based_certs" {
+  description = "If you would like to provide your own mTLS CA certs for istio to use, enable this flag and input AWS secret ARNs required"
   default     = false
 }
 
-variable "istio_aws_nlb_gw_enabled" {
-  description = "enable or disable the istio gw install that has an ELB for load balancer, default true"
-  default     = false
-}
-
-variable "istio_meshconfig_network" {
+// Istiod chart values
+variable "istiod_global_network" {
   description = "Istio telementry network name, default network1"
   default     = "network1"
 }
 
-variable "istio_meshconfig_mesh_name" {
+variable "istiod_global_meshID" {
   description = "Istio telementry mesh name, default mesh1"
   default     = "mesh1"
 }
 
-variable "enable_aws_secret_manager_based_certs" {
-  description = "If you would like to provide your own mTLS CA certs for istio to use, enable this flag and input AWS secret ARNs required"
-  default     = false
+
+variable "istiod_meshConfig_defaultConfig_envoyMetricsService_address" {
+  description = "The mesh default config envoy metrics service address"
+  default     = "gloo-mesh-agent.gloo-mesh:9977"
+}
+
+variable "istiod_meshConfig_accessLogFile" {
+  description = "The mesh config access log file"
+  default     = "/dev/stdout"
+}
+
+variable "istiod_meshConfig_rootNamespace" {
+  description = "The mesh config root namespace"
+  default     = "istio-system"
+}
+
+variable "istiod_meshConfig_enableAutoMtls" {
+  description = "The mesh config enable automtls, default 'true'"
+  default     = "true"
+}
+
+variable "istiod_meshConfig_defaultConfig_envoyAccessLogService_address" {
+  description = "The mesh default config envoy access log service address"
+  default     = "gloo-mesh-agent.gloo-mesh:9977"
+}
+
+variable "istiod_meshConfig_defaultConfig_proxyMetadata_IstioMetaDNSCapture" {
+  type        = string
+  description = "The mesh config default for ISTIO_META_DNS_CAPTURE, enable or disable, default 'true'"
+  default     = "true"
+}
+
+variable "istiod_meshConfig_defaultConfig_proxyMetadata_IstioMetaDNSAutoAllocate" {
+  type        = string
+  description = "The mesh config default for ISTIO_META_DNS_AUTO_ALLOCATE, enable or disable, default 'true'"
+  default     = "true"
+}
+
+variable "istiod_pilot_env_PilotSkipValidateTrustDomain" {
+  type        = string
+  description = "Pilot skip validate trust domain flag, default 'true'"
+  default     = "true"
 }
