@@ -4,6 +4,10 @@ Install and setup Istio via Helm
 
 ## unreleased
 
+## 0.0.3
+ - [Zane]
+   - docs update
+
 ## 0.0.2
  - [Zane]
    - Reconfigure istiod helm values input 
