@@ -1,5 +1,6 @@
 ## Module Name: terraform-helm-istio
 #### Description: Install and setup Istio via Helm
+#### [Terraform Registry Module](https://registry.terraform.io/modules/sepulworld/istio/helm/latest)
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
