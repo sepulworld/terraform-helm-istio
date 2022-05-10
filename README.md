@@ -1,15 +1,6 @@
 ## Module Name: terraform-helm-istio
 #### Description: Install and setup Istio via Helm
 
-### Updated Readme by [terraform-docs](https://terraform-docs.io/user-guide/how-to/)
-
-```
-terraform-docs markdown . --output-file README.md
-```
-### Automated testing on module
-
-Testing is done via GHA workflow using K8s Kind. See `.tests/`
-
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
@@ -71,3 +62,16 @@ No modules.
 
 No outputs.
 <!-- END_TF_DOCS -->
+
+
+## Contributing
+
+### Updated Readme by [terraform-docs](https://terraform-docs.io/user-guide/how-to/)
+
+```
+terraform-docs markdown . --output-file README.md
+```
+
+### Automated testing on module
+
+Testing is done via GHA workflow using K8s Kind. See `.tests/`
